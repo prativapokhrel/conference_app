@@ -1,0 +1,146 @@
+.container
+  .row.justify-content-center.mb-3
+    .col-md-12
+      .input-group
+        %input#copy-room-name.form-control{type: "text", value: "#{request.base_url}/rooms/#{@room.name}"}/
+        %span.input-group-btn
+          %button#copy-button.btn.btn-secondary{type: "button"} Click to Copy
+  .row
+    .col-md-3
+      #join-btn-container
+        %button.btn.btn-salmon.btn-block{onclick: "handleJoinSession()"}
+          Join Room
+      #leave-btn-container
+        %button.btn.btn-secondary.btn-block{onclick: "handleLeaveSession()", style: "display: none"}
+          Leave Room
+      -# %ul.list-group
+      -#   - present @room do |room_presenter|
+      -#     = room_presenter.register_link(current_user)
+      -#     = room_presenter.claim_room_link(current_user)
+      -#     = room_presenter.toggle_status_link(current_user)
+      -#     = room_presenter.room_settings_link(current_user)
+    .col-md-9
+      %span#room-name{"data-room" => "#{@room.name}"}
+      %span#currentUser{"data-email" => "#{@user.email}"}
+      #remoteViewContainer
+      #localViewContainer
+        %video#selfView{autoplay: ""}
+        %i.fas.fa-video-camera{onclick: "toggleVideo()"}
+        %i.fa.fa-microphone{onclick: "toggleAudio()"}
+        %i.fa.fa-phone{onclick: "handleLeaveSession()"}
+
+        
+- content_for :page_js do
+  :javascript
+    #{render file: "rooms/webrtc.js"}
+
+:css
+
+  #localViewContainer {
+    -webkit-transform:rotateY(180deg);
+  }
+
+  .fa-microphone {
+    position: absolute;
+    z-index: 2;
+    margin-left: -45px;
+    width: 25%;
+    color: white;
+    margin-top: 200px;
+    -webkit-transform:rotateY(180deg);
+  }
+
+  .fa-microphone:hover {
+    animation: spinAround 2s linear infinite;
+  }
+
+  .fa-phone:hover {
+    animation: spinAround 2s linear infinite;
+  }
+
+  .fa-video-camera:hover {
+    animation: spinAround 2s linear infinite;
+  }
+
+  @keyframes spinAround {
+    from {
+      transform: rotate(0deg)
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .fa-microphone-slash {
+    position: absolute;
+    z-index: 2;
+    margin-left: -45px;
+    width: 25%;
+    color: white;
+    margin-top: 200px;
+    -webkit-transform:rotateY(180deg);
+
+  }
+
+  .fa-video-camera {
+    position: absolute;
+    z-index: 2;
+    width: 25%;
+    color: white;
+    margin-top: 200px;
+    margin-left: 55px;
+    -webkit-transform:rotateY(180deg);
+
+  }
+
+  .fa-video-slash {
+    position: absolute;
+    z-index: 2;
+    width: 25%;
+    color: white;
+    margin-top: 200px;
+    margin-left: 55px;
+    -webkit-transform:rotateY(180deg);
+
+  }
+
+  .fa-phone {
+    position: absolute;
+    z-index: 2;
+    width: 25%;
+    color: white;
+    margin-top: 200px;
+    margin-left: 5px;
+    background: red;
+    -webkit-transform:rotateY(180deg);
+
+  }
+
+  .fa-ban {
+    position: absolute;
+    z-index: 2;
+    width: 25%;
+    color: white;
+    margin-top: 200px;
+    margin-left: 0px;
+    background: red;
+  }
+
+
+  i.fa {
+    display: inline-block;
+    border-radius: 60px;
+    box-shadow: 0px 0px 2px #888;
+    padding: 0.5em 0.6em;
+    width: auto;
+
+  }
+
+    i.fas {
+    display: inline-block;
+    border-radius: 60px;
+    box-shadow: 0px 0px 2px #888;
+    padding: 0.5em 0.6em;
+    width: auto;
+
+  }
