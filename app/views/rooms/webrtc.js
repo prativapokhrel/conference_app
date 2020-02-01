@@ -15,9 +15,9 @@ document.getElementById("copy-button").addEventListener("click", function(e) {
   }
 });
 
-navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia ||
-navigator.webkitGetUserMedia ||
-navigator.mozGetUserMedia;
+window.navigator.mediaDevices.getUserMedia = window.navigator.mediaDevices.getUserMedia ||
+window.navigator.webkitGetUserMedia ||
+window.navigator.mozGetUserMedia;
 
 // Broadcast Types
 const JOIN_ROOM = "JOIN_ROOM";
@@ -68,7 +68,7 @@ const initialize = async () => {
   //   }
   // );
 
-  navigator.mediaDevices
+  window.navigator.mediaDevices
     .getUserMedia(constraints)
     .then(stream => {
       localStream = stream;
