@@ -76,6 +76,9 @@ const initialize = async () => {
   //     selfView.muted = false;
   //   })
   //   .catch(logError);
+  video.setAttribute('autoplay', '');
+  video.setAttribute('muted', '');
+  video.setAttribute('playsinline', '');
 
   window.navigator.mediaDevices
     .getUserMedia(constraints)
