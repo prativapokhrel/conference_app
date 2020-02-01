@@ -37,6 +37,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'rest-client',  '~> 2.0', '>= 2.0.2'
 
+gem 'redis', '~> 3.0'
+
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'

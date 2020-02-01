@@ -4,22 +4,8 @@ require 'json'
 class RoomsController < ApplicationController
 
   skip_before_action :verify_authenticity_token
-  # before_action :set_user
-  # before_action :set_room,           only: %i[show]
-  # rescue_from ActiveRecord::RecordNotFound, with: :room_not_found
+  rescue_from ActiveRecord::RecordNotFound, with: :room_not_found
   rescue_from SocketError, with: :socket_error
-
-  # def authenticate
-  #   password_hash = @room.check_hashed_password(@room.password)
-
-  #   if password_hash == params[:password]
-  #     flash[:success] = "You are now in the room: #{@room.name}"
-  #     redirect_to action: 'show', password: password_hash
-  #   else
-  #     flash[:notice] = 'You entered the incorrect password!'
-  #   end
-  # end
-
 
   def new
     @room = Room.new
@@ -56,13 +42,13 @@ class RoomsController < ApplicationController
 
   private
 
-  def set_user
-    @user = current_user
-  end
+  # def set_user
+  #   @user = current_user
+  # end
 
-  def set_room
-    @room = Room.find(params[:id])
-  end
+  # def set_room
+  #   @room = Room.find(params[:id])
+  # end
 
   def room_params
     params.require(:room).permit(:name)

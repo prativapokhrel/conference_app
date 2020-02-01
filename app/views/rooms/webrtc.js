@@ -46,7 +46,14 @@ window.onload = () => {
 };
 
 // Ice Credentials
-const ice = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
+const ice =  { 
+  'iceServers': [
+    {'urls': 'stun:stun.1.google.com:19302'},
+    {"urls":"turn:numb.viagenie.ca", "username":"webrtc@live.com", "credential":"muazkh"}]
+  } ;
+
+// const ice = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
+
 
 const initialize = async () => {
   // App.ice = await App.cable.subscriptions.create(
@@ -108,7 +115,7 @@ const handleLeaveSession = () => {
   pcPeers = {};
   // debugger;
 
-  App.ice.unsubscribe();
+  // App.ice.unsubscribe();
 
   remoteViewContainer.innerHTML = "";
 
