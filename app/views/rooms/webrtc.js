@@ -68,39 +68,25 @@ const initialize = async () => {
   //   }
   // );
 
-  // window.navigator.mediaDevices
-  //   .getUserMedia(constraints)
-  //   .then(stream => {
-  //     localStream = stream;
-  //     selfView.srcObject = stream;
-  //     selfView.muted = false;
-  //   })
-  //   .catch(logError);
   video.setAttribute('autoplay', '');
   video.setAttribute('muted', '');
   video.setAttribute('playsinline', '');
-
+  
   window.navigator.mediaDevices
     .getUserMedia(constraints)
     .then(stream => {
-      setTimeout(() => {
       //display your local video in #selfView element
-        localStream = stream;
-        selfView.srcObject = stream;
-        selfView.muted = false;
-        stream.getTracks().forEach(track => pc.addTrack(track, stream));   
-      }, 100);
-      })
+      localStream = stream;
+      selfView.srcObject = stream;
+      selfView.muted = false;
+    })
     .catch(logError);
-};
-
   
-
-
-
+};
 
 
 const handleJoinSession = async () => {
+  debugger;
   App.session = await App.cable.subscriptions.create(
     { channel: "SessionChannel", id: roomName },
     {
@@ -232,36 +218,15 @@ const createPC = (userId, isOffer) => {
       });
   };
 
-  // pc.ontrack = event => {
-  //   remoteVideo.srcObject = event.stream;
-  //   const stream = event.streams[0];
-  //   if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== stream.id) {
-  //     remoteVideo.srcObject = stream;
-  //   }
 
-
-
-
-  // pc.onaddstream = event => {
-  //   const element = document.createElement("video");
-  //   element.id = `remoteView+${userId}`;
-  //   element.autoplay = "autoplay";
-  //   element.srcObject = event.stream;
-  //   remoteViewContainer.appendChild(element);
-  // };
-
-  pc.ontrack = event => {
+  pc.onaddstream = event => {
     const element = document.createElement("video");
     element.id = `remoteView+${userId}`;
     element.autoplay = "autoplay";
     element.srcObject = event.stream;
-    const stream = event.streams[0];
-    if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== stream.id) {
-      remoteVideo.srcObject = stream;
-    }
-
     remoteViewContainer.appendChild(element);
   };
+
 
   pc.oniceconnectionstatechange = event => {
     if (pc.iceConnectionState == "disconnected") {
