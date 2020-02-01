@@ -50,7 +50,7 @@ class RoomsController < ApplicationController
   def show
     @room = Room.find_by_name(params[:id])
     @user = current_user
-    XirsysCredentialsJob.perform_later(@room.name)
+    # XirsysCredentialsJob.perform_later(@room.name)
   end
 
 

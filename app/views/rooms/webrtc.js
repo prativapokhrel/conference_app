@@ -35,7 +35,7 @@ const leaveBtnContainer = document.getElementById("leave-btn-container");
 // Configuration
 let roomName = document.getElementById("room-name").dataset.room;
 let constraints = { audio: true, video: true, videofec: false };
-let xirsysIceCreds;
+// let xirsysIceCreds;
 
 // Global Objects
 let pcPeers = {};
@@ -45,16 +45,19 @@ window.onload = () => {
   initialize();
 };
 
+// Ice Credentials
+const ice = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
+
 const initialize = async () => {
-  App.ice = await App.cable.subscriptions.create(
-    { channel: "IceChannel", id: roomName },
-    {
-      received: data => {
-        xirsysIceCreds = JSON.parse(data);
-        xirsysIceCreds = xirsysIceCreds["v"];
-      }
-    }
-  );
+  // App.ice = await App.cable.subscriptions.create(
+  //   { channel: "IceChannel", id: roomName },
+  //   {
+  //     received: data => {
+  //       xirsysIceCreds = JSON.parse(data);
+  //       xirsysIceCreds = xirsysIceCreds["v"];
+  //     }
+  //   }
+  // );
 
   navigator.mediaDevices
     .getUserMedia(constraints)
@@ -170,7 +173,7 @@ const removeUser = data => {
 };
 
 const createPC = (userId, isOffer) => {
-  let pc = new RTCPeerConnection(xirsysIceCreds);
+  let pc = new RTCPeerConnection(ice);
   pcPeers[userId] = pc;
   pc.addStream(localStream);
 
