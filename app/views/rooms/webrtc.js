@@ -68,15 +68,30 @@ const initialize = async () => {
   //   }
   // );
 
+  // window.navigator.mediaDevices
+  //   .getUserMedia(constraints)
+  //   .then(stream => {
+  //     localStream = stream;
+  //     selfView.srcObject = stream;
+  //     selfView.muted = false;
+  //   })
+  //   .catch(logError);
+
   window.navigator.mediaDevices
     .getUserMedia(constraints)
     .then(stream => {
-      localStream = stream;
-      selfView.srcObject = stream;
-      selfView.muted = false;
-    })
+      setTimeout(() => {
+      //display your local video in #selfView element
+        localStream = stream;
+        selfView.srcObject = stream;
+        selfView.muted = false;
+        stream.getTracks().forEach(track => pc.addTrack(track, stream));   
+      }, 100);
+      })
     .catch(logError);
 };
+
+  
 
 
 
@@ -214,11 +229,34 @@ const createPC = (userId, isOffer) => {
       });
   };
 
-  pc.onaddstream = event => {
+  // pc.ontrack = event => {
+  //   remoteVideo.srcObject = event.stream;
+  //   const stream = event.streams[0];
+  //   if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== stream.id) {
+  //     remoteVideo.srcObject = stream;
+  //   }
+
+
+
+
+  // pc.onaddstream = event => {
+  //   const element = document.createElement("video");
+  //   element.id = `remoteView+${userId}`;
+  //   element.autoplay = "autoplay";
+  //   element.srcObject = event.stream;
+  //   remoteViewContainer.appendChild(element);
+  // };
+
+  pc.ontrack = event => {
     const element = document.createElement("video");
     element.id = `remoteView+${userId}`;
     element.autoplay = "autoplay";
     element.srcObject = event.stream;
+    const stream = event.streams[0];
+    if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== stream.id) {
+      remoteVideo.srcObject = stream;
+    }
+
     remoteViewContainer.appendChild(element);
   };
 
