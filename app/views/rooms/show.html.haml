@@ -13,12 +13,7 @@
       #leave-btn-container
         %button.btn.btn-secondary.btn-block{onclick: "handleLeaveSession()", style: "display: none"}
           Leave Room
-      -# %ul.list-group
-      -#   - present @room do |room_presenter|
-      -#     = room_presenter.register_link(current_user)
-      -#     = room_presenter.claim_room_link(current_user)
-      -#     = room_presenter.toggle_status_link(current_user)
-      -#     = room_presenter.room_settings_link(current_user)
+
     .col-md-9
       %span#room-name{"data-room" => "#{@room.name}"}
       %span#currentUser{"data-email" => "#{@user.email}"}
@@ -26,8 +21,8 @@
       #localViewContainer
         %video#selfView{autoplay: ""}
         %i.fas.fa-video-camera{onclick: "toggleVideo()"}
-        %i.fa.fa-microphone{onclick: "toggleAudio()"}
-        %i.fa.fa-phone{onclick: "handleLeaveSession()"}
+        %i.fas.fa-microphone{onclick: "toggleAudio()"}
+        %i.fas.fa-phone{onclick: "handleLeaveSession()"}
 
         
 - content_for :page_js do

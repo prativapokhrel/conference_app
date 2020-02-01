@@ -54,6 +54,8 @@ const ice =  {
 
 // const ice = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
 
+// for echo cancellation
+document.getElementById('selfView').volume = 0
 
 const initialize = async () => {
   // App.ice = await App.cable.subscriptions.create(
@@ -75,6 +77,8 @@ const initialize = async () => {
     })
     .catch(logError);
 };
+
+
 
 
 
