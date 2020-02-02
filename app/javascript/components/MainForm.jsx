@@ -4,10 +4,13 @@ import axios from "axios";
 
 class MainForm extends Component {
 
-  state = {
+  constructor(props) {
+    super(props);
+    this.state = {
       post: {},
       roomName: ""
     };
+  }
   
   // handle room create 
   handleButtonPress = () => {
