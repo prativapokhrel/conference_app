@@ -70,9 +70,9 @@ const initialize = async () => {
   //   }
   // );
 
-  video.setAttribute('autoplay', '');
-  video.setAttribute('muted', '');
-  video.setAttribute('playsinline', '');
+  // video.setAttribute('autoplay', '');
+  // video.setAttribute('muted', '');
+  // video.setAttribute('playsinline', '');
   
   window.navigator.mediaDevices
     .getUserMedia(constraints)
