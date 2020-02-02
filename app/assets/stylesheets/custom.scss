@@ -16,7 +16,7 @@ $link-hover-decoration: underline !default;
 $state-success-text: #ffffff;
 $state-success-bg:   #fa4932;
 
-.btn-salmon {
+.btn-blue {
   background: $brand-primary;
   color: white;
   &:hover {
@@ -43,4 +43,113 @@ $state-success-bg:   #fa4932;
     height: auto;
     border: 3px solid #ccc;
   }
+}
+
+#localViewContainer {
+  -webkit-transform:rotateY(180deg);
+}
+
+.fa-microphone {
+  position: absolute;
+  z-index: 2;
+  margin-left: -45px;
+  width: 25%;
+  color: white;
+  margin-top: 200px;
+  -webkit-transform:rotateY(180deg);
+}
+
+.fa-microphone:hover {
+  animation: spinAround 2s linear infinite;
+}
+
+.fa-phone:hover {
+  animation: spinAround 2s linear infinite;
+}
+
+.fa-video-camera:hover {
+  animation: spinAround 2s linear infinite;
+}
+
+@keyframes spinAround {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fa-microphone-slash {
+  position: absolute;
+  z-index: 2;
+  margin-left: -45px;
+  width: 25%;
+  color: white;
+  margin-top: 200px;
+  -webkit-transform:rotateY(180deg);
+
+}
+
+.fa-video {
+  position: absolute;
+  z-index: 2;
+  width: 25%;
+  color: white;
+  margin-top: 200px;
+  margin-left: 55px;
+  -webkit-transform:rotateY(180deg);
+
+}
+
+.fa-video-slash {
+  position: absolute;
+  z-index: 2;
+  width: 25%;
+  color: white;
+  margin-top: 200px;
+  margin-left: 55px;
+  -webkit-transform:rotateY(180deg);
+
+}
+
+.fa-phone {
+  position: absolute;
+  z-index: 2;
+  width: 25%;
+  color: white;
+  margin-top: 200px;
+  margin-left: 5px;
+  background: red;
+  -webkit-transform:rotateY(180deg);
+
+}
+
+.fa-ban {
+  position: absolute;
+  z-index: 2;
+  width: 25%;
+  color: white;
+  margin-top: 200px;
+  margin-left: 0px;
+  background: red;
+}
+
+
+i.fa {
+  display: inline-block;
+  border-radius: 60px;
+  box-shadow: 0px 0px 2px #888;
+  padding: 0.5em 0.6em;
+  width: auto;
+
+}
+
+  i.fas {
+  display: inline-block;
+  border-radius: 60px;
+  box-shadow: 0px 0px 2px #888;
+  padding: 0.5em 0.6em;
+  width: auto;
+
 }

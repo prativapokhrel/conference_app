@@ -8,11 +8,8 @@
   .row
     .col-md-3
       #join-btn-container
-        %button.btn.btn-salmon.btn-block{onclick: "handleJoinSession()"}
+        %button.btn.btn-blue.btn-block{onclick: "handleJoinSession()"}
           Join Room
-      #leave-btn-container
-        %button.btn.btn-secondary.btn-block{onclick: "handleLeaveSession()", style: "display: none"}
-          Leave Room
 
     .col-md-9
       %span#room-name{"data-room" => "#{@room.name}"}
@@ -23,124 +20,7 @@
         %i.fas.fa-video{onclick: "toggleVideo()"}
         %i.fa.fa-microphone{onclick: "toggleAudio()"}
         %i.fa.fa-phone{onclick: "handleLeaveSession()"}
-
-    -# #{render file: "rooms/webrtc.js"}
         
 - content_for :page_js do
   :javascript
     #{render file: "rooms/webrtc.js"}
-
-
-
-
-
-:css
-
-  #localViewContainer {
-    -webkit-transform:rotateY(180deg);
-  }
-
-  .fa-microphone {
-    position: absolute;
-    z-index: 2;
-    margin-left: -45px;
-    width: 25%;
-    color: white;
-    margin-top: 200px;
-    -webkit-transform:rotateY(180deg);
-  }
-
-  .fa-microphone:hover {
-    animation: spinAround 2s linear infinite;
-  }
-
-  .fa-phone:hover {
-    animation: spinAround 2s linear infinite;
-  }
-
-  .fa-video-camera:hover {
-    animation: spinAround 2s linear infinite;
-  }
-
-  @keyframes spinAround {
-    from {
-      transform: rotate(0deg)
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  .fa-microphone-slash {
-    position: absolute;
-    z-index: 2;
-    margin-left: -45px;
-    width: 25%;
-    color: white;
-    margin-top: 200px;
-    -webkit-transform:rotateY(180deg);
-
-  }
-
-  .fa-video {
-    position: absolute;
-    z-index: 2;
-    width: 25%;
-    color: white;
-    margin-top: 200px;
-    margin-left: 55px;
-    -webkit-transform:rotateY(180deg);
-
-  }
-
-  .fa-video-slash {
-    position: absolute;
-    z-index: 2;
-    width: 25%;
-    color: white;
-    margin-top: 200px;
-    margin-left: 55px;
-    -webkit-transform:rotateY(180deg);
-
-  }
-
-  .fa-phone {
-    position: absolute;
-    z-index: 2;
-    width: 25%;
-    color: white;
-    margin-top: 200px;
-    margin-left: 5px;
-    background: red;
-    -webkit-transform:rotateY(180deg);
-
-  }
-
-  .fa-ban {
-    position: absolute;
-    z-index: 2;
-    width: 25%;
-    color: white;
-    margin-top: 200px;
-    margin-left: 0px;
-    background: red;
-  }
-
-
-  i.fa {
-    display: inline-block;
-    border-radius: 60px;
-    box-shadow: 0px 0px 2px #888;
-    padding: 0.5em 0.6em;
-    width: auto;
-
-  }
-
-    i.fas {
-    display: inline-block;
-    border-radius: 60px;
-    box-shadow: 0px 0px 2px #888;
-    padding: 0.5em 0.6em;
-    width: auto;
-
-  }

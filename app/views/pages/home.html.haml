@@ -1,4 +1,6 @@
 .wrapper
   %h2.text-center Welcome! 
+  .error-notification 
+    = render partial: "shared/alerts", :locals => {:error => nil }
   .wrapper 
     = react_component "MainForm"

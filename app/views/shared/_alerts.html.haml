@@ -1,0 +1,10 @@
+
+- if flash[:error].present?
+  %div{ :class => "alert alert-danger text-center" }
+    %strong= flash[:"error"]
+    - unless error.nil?
+      - unless error.try(:errors).nil?
+        - if error.errors.count > 0
+          %ul
+            - error.errors.full_messages.each do |msg|
+              %li= msg

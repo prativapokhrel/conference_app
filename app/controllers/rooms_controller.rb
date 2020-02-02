@@ -3,8 +3,6 @@ require 'json'
 class RoomsController < ApplicationController
 
   skip_before_action :verify_authenticity_token
-  rescue_from ActiveRecord::RecordNotFound, with: :room_not_found
-  rescue_from SocketError, with: :socket_error
 
   def new
     @room = Room.new
@@ -17,13 +15,13 @@ class RoomsController < ApplicationController
       if @room.save
         format.html do
           flash[:success] = 'You created a room!'
-          redirect_to room_path(@room.id)
+          redirect_to room_path(@room.name)
         end
 
         format.json { render json: @room, status: :created}
       else
         format.html do
-          flash[:notice] = 'Sorry, that room is taken!'
+          flash[:notice] = 'Sorry, something went wrong'
           redirect_to root_path
         end
 
@@ -34,32 +32,17 @@ class RoomsController < ApplicationController
 
   def show
     @room = Room.find_by_name(params[:id])
+    unless @room.present?
+      flash[:error] = 'The room does not exist, would you like to create one?'
+      redirect_to root_path
+    end 
     @user = current_user
-    # XirsysCredentialsJob.perform_later(@room.name)
   end
 
 
   private
 
-  # def set_user
-  #   @user = current_user
-  # end
-
-  # def set_room
-  #   @room = Room.find(params[:id])
-  # end
-
   def room_params
     params.require(:room).permit(:name)
-  end
-
-  def room_not_found
-    flash[:notice] = 'That room does not exist, would you like to create it?'
-    redirect_to new_room_path
-  end
-
-  def socket_error
-    flash[:notice] = 'TODO: Something went wrong with the WebRTC stuff'
-    redirect_to root_path
   end
 end

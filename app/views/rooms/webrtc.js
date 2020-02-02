@@ -1,5 +1,4 @@
-
-
+// copy shareable link 
 document.getElementById("copy-button").addEventListener("click", function(e) {
   e.preventDefault();
 
@@ -17,6 +16,7 @@ document.getElementById("copy-button").addEventListener("click", function(e) {
   }
 });
 
+// support for multiple browsers
 window.navigator.mediaDevices.getUserMedia = window.navigator.mediaDevices.getUserMedia ||
 window.navigator.webkitGetUserMedia ||
 window.navigator.mozGetUserMedia;
@@ -25,7 +25,6 @@ window.navigator.mozGetUserMedia;
 const JOIN_ROOM = "JOIN_ROOM";
 const EXCHANGE = "EXCHANGE";
 const REMOVE_USER = "REMOVE_USER";
-var myStream;
 
 // DOM Elements
 const currentUser = document.getElementById("currentUser").dataset.email;
@@ -56,6 +55,7 @@ const ice =  {
 // for echo cancellation
 document.getElementById('selfView').volume = 0
 
+// stream local video
 const initialize = async () => {
   
   window.navigator.mediaDevices
@@ -67,10 +67,9 @@ const initialize = async () => {
       selfView.muted = false;
     })
     .catch(logError);
-  
 };
 
-
+// when user joins this function streams through session channel
 const handleJoinSession = async () => {
   App.session = await App.cable.subscriptions.create(
     { channel: "SessionChannel", id: roomName },
@@ -96,9 +95,9 @@ const handleJoinSession = async () => {
   );
 
   joinBtnContainer.style.display = "none";
-  leaveBtnContainer.style.display = "block";
 };
 
+// when user ends the call
 const handleLeaveSession = () => {
   localStream.getTracks().forEach(track => track.stop())
 
@@ -149,7 +148,7 @@ const toggleVideo = () => {
   }
 }
 
-
+// broadcast the room after connection of user
 const connectUser = userId => {
   broadcastData({
     type: JOIN_ROOM,
@@ -162,6 +161,7 @@ const joinRoom = data => {
   createPC(data.from, true);
 };
 
+// after end call is fired, the remote remote video is removed 
 const removeUser = data => {
   console.log("removing user", data.from);
   let video = document.getElementById(`remoteView+${data.from}`);
@@ -169,6 +169,7 @@ const removeUser = data => {
   delete pcPeers[data.from];
 };
 
+// broadcast through STUN and TURN server 
 const createPC = (userId, isOffer) => {
   let pc = new RTCPeerConnection(ice);
   pcPeers[userId] = pc;
@@ -200,7 +201,7 @@ const createPC = (userId, isOffer) => {
       });
   };
 
-
+  // display the video 
   pc.onaddstream = event => {
     const element = document.createElement("video");
     element.id = `remoteView+${userId}`;
@@ -209,7 +210,7 @@ const createPC = (userId, isOffer) => {
     remoteViewContainer.appendChild(element);
   };
 
-
+  // when user is disconnected
   pc.oniceconnectionstatechange = event => {
     if (pc.iceConnectionState == "disconnected") {
       console.log("Disconnected:", userId);
@@ -224,6 +225,7 @@ const createPC = (userId, isOffer) => {
   return pc;
 };
 
+// when remote user joins, candidate is added 
 const exchange = data => {
   let pc;
 
