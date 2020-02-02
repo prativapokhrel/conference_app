@@ -1,24 +1,23 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a virtual video conference app using WebRTC 
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version 
+  2.6.3
 
 * System dependencies
-
-* Configuration
+  PostgreSQL, yarn
 
 * Database creation
+  bundle exec rails db:create
 
-* Database initialization
+* Database migration
+  bundle exec rails db:migrate
 
 * How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
+  bundle exec rspec spec/features/file_name
+  bundle exec rspec spec/controllers/file_name
 
 * ...
