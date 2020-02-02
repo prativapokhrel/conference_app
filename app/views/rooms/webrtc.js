@@ -37,7 +37,6 @@ const leaveBtnContainer = document.getElementById("leave-btn-container");
 // Configuration
 let roomName = document.getElementById("room-name").dataset.room;
 let constraints = { audio: true, video: true, videofec: false };
-// let xirsysIceCreds;
 
 // Global Objects
 let pcPeers = {};
@@ -47,32 +46,17 @@ window.onload = () => {
   initialize();
 };
 
-// Ice Credentials
+// Ice Credentials for Stun and turn server
 const ice =  { 
   'iceServers': [
     {'urls': 'stun:stun.1.google.com:19302'},
     {"urls":"turn:numb.viagenie.ca", "username":"webrtc@live.com", "credential":"muazkh"}]
   } ;
 
-// const ice = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
-
 // for echo cancellation
 document.getElementById('selfView').volume = 0
 
 const initialize = async () => {
-  // App.ice = await App.cable.subscriptions.create(
-  //   { channel: "IceChannel", id: roomName },
-  //   {
-  //     received: data => {
-  //       xirsysIceCreds = JSON.parse(data);
-  //       xirsysIceCreds = xirsysIceCreds["v"];
-  //     }
-  //   }
-  // );
-
-  // video.setAttribute('autoplay', '');
-  // video.setAttribute('muted', '');
-  // video.setAttribute('playsinline', '');
   
   window.navigator.mediaDevices
     .getUserMedia(constraints)
@@ -88,7 +72,6 @@ const initialize = async () => {
 
 
 const handleJoinSession = async () => {
-  debugger;
   App.session = await App.cable.subscriptions.create(
     { channel: "SessionChannel", id: roomName },
     {
@@ -123,9 +106,6 @@ const handleLeaveSession = () => {
     pcPeers[user].close();
   }
   pcPeers = {};
-  // debugger;
-
-  // App.ice.unsubscribe();
 
   remoteViewContainer.innerHTML = "";
 
@@ -256,6 +236,7 @@ const exchange = data => {
   if (data.candidate) {
     pc
       .addIceCandidate(new RTCIceCandidate(JSON.parse(data.candidate)))
+
       .then(() => console.log("Ice candidate added"))
       .catch(logError);
   }
@@ -282,6 +263,7 @@ const exchange = data => {
   }
 };
 
+// actioncable server broadcast
 const broadcastData = data => {
 
   $.ajax({
