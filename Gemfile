@@ -9,7 +9,7 @@ gem 'rails', '~> 5.2.4', '>= 5.2.4.1'
 gem 'pg', '~> 0.18'
 
 #use bootstrap for styling
-gem 'bootstrap', '~> 4.0.0.beta'
+gem 'bootstrap', '~> 4.3.1'
 
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
